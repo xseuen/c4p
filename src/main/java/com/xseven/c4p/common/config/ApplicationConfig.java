@@ -1,15 +1,8 @@
 package com.xseven.c4p.common.config;
 
 import cn.org.atool.fluent.mybatis.spring.MapperFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-
-import javax.sql.DataSource;
 
 /**
  * @ClassName ApplicationConfig
