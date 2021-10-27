@@ -37,6 +37,6 @@ public class UserController {
     @ApiOperation("根据id获取用户")
     public Result getUserById(@PathVariable("id")@NotNull Long id){
         UserEntity user = userMapper.findById(id);
-        return user==null?Result.error().message(ResultInfo.NOT_FOUND.getMessage()):Result.ok().data("user",user);
+        return user==null?Result.error().code(ResultInfo.NOT_FOUND.getCode()).message(ResultInfo.NOT_FOUND.getMessage()):Result.ok().data("user",user);
     }
 }
