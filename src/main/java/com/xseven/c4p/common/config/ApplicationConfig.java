@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @ClassName ApplicationConfig
  * @Author: xseven
- * @Description TODO
+ * @Description fluent_mybatis定义MapperFactory
  * @date 2021/10/26 15:08
  * @Version 1.0
  */

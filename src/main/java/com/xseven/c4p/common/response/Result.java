@@ -25,8 +25,11 @@ public class Result {
     @ApiModelProperty(value = "返回信息")
     private String message;
 
-    @ApiModelProperty(value = "返回数据")
-    private Map<String,Object> data = new HashMap<>();
+    // @ApiModelProperty(value = "返回数据")
+    // private Map<String,Object> data = new HashMap<>();
+
+     @ApiModelProperty(value = "返回数据")
+     private Object data = new Object();
 
     /**
      * 构造方法私有化，里面的方法都是静态方法
@@ -53,6 +56,22 @@ public class Result {
         result.setMessage(ResultInfo.ERROR.getMessage());
         return result;
     }
+
+    public static Result ok(ResultInfo resultInfo){
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setCode(resultInfo.getCode());
+        result.setMessage(resultInfo.getMessage());
+        return result;
+    }
+
+    public static Result error(ResultInfo resultInfo){
+        Result result = new Result();
+        result.setSuccess(false);
+        result.setCode(resultInfo.getCode());
+        result.setMessage(resultInfo.getMessage());
+        return result;
+    }
     /**
      * @Author: xseven
      * @Description: 自定义返回成功与否
@@ -61,20 +80,42 @@ public class Result {
         this.setSuccess(success);
         return this;
     }
+
+    /**
+     * 返回状态码
+     * @param code 状态码
+     * @return
+     */
     public  Result code(Integer code){
         this.setCode(code);
         return this;
     }
+
+    /**
+     * 返回提示信息
+     * @param message 提示信息
+     * @return
+     */
     public  Result message(String message){
         this.setMessage(message);
         return this;
     }
-    public  Result data(String key, Object value){
-        this.data.put(key,value);
+
+    /**
+     * 返回数据
+     * @param data 数据内容
+     * @return
+     */
+    public Result data (Object data){
+        this.data = data;
         return this;
     }
-    public  Result data(Map<String,Object> map){
-        this.setData(map);
-        return this;
-    }
+    // public  Result data(String key, Object value){
+    //     this.data.put(key,value);
+    //     return this;
+    // }
+    // public  Result data(Map<String,Object> map){
+    //     this.setData(map);
+    //     return this;
+    // }
 }

@@ -12,6 +12,7 @@ public enum ResultInfo implements IResult {
     SUCCESS(200,"操作成功"),
     ERROR(400,"操作失败"),
     NOT_FOUND(404,"没有找到"),
+    INTERNAL_SERVER_ERROR(500,"服务器处理时发生了意外"),
     UPDATE_ERROR(678,"更新失败"),
     UPDATE_SUCCESS(679,"修改成功"),
     NO_DATA_FOUND(999,"没有找到相关内容"),

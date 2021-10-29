@@ -1,5 +1,5 @@
 ### c4p 花式编程
-### colorful for programing
+### colorful for programming
 
   1. 技术架构
      + springboot

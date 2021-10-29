@@ -60,6 +60,12 @@ public class UserEntity extends RichEntity {
   private String nickname;
 
   /**
+   * 用户头像
+   */
+  @TableField("avatar")
+  private String avatar;
+
+  /**
    * 删除标志 0未删除 1删除
    */
   @TableField(

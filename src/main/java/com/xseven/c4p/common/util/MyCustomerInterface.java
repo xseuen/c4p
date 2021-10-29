@@ -1,6 +1,7 @@
 package com.xseven.c4p.common.util;
 
 import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import cn.org.atool.fluent.mybatis.base.IEntity;
 import cn.org.atool.fluent.mybatis.base.crud.IDefaultSetter;
 
@@ -16,6 +17,7 @@ import java.util.function.Supplier;
 public interface MyCustomerInterface extends IDefaultSetter {
     @Override
     default Supplier<Object> pkGenerator(IEntity entity) {
-        return Snowflake::new;
+        SnowflakeGenerator snowflakeGenerator = new SnowflakeGenerator();
+        return snowflakeGenerator::next;
     }
 }
