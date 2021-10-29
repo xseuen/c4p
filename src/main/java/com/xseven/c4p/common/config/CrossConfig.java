@@ -37,6 +37,5 @@ public class CrossConfig implements WebMvcConfigurer {
         //  addResourceLocations 添加需要访问文件的本地地址
         registry.addResourceHandler("/path/**")
                 .addResourceLocations("file:D:" + "/suse/hotpot-demo/src/main/resources/static/img/");
-        System.out.println(registry);
     }
 }
