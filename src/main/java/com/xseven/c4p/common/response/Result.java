@@ -29,7 +29,7 @@ public class Result {
     // private Map<String,Object> data = new HashMap<>();
 
      @ApiModelProperty(value = "返回数据")
-     private Object data = new Object();
+     private Object data;
 
     /**
      * 构造方法私有化，里面的方法都是静态方法

@@ -77,7 +77,7 @@ public class UserController {
     public Result saveUser(@RequestBody UserDto userDto){
         try {
             Boolean res = userService.saveUser(userDto.getUserEntity());
-            return res?Result.ok(ResultInfo.SUCCESS) : Result.error(ResultInfo.ERROR);
+            return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -95,7 +95,7 @@ public class UserController {
         if (userDto != null && userDto.getUserEntity() != null && userDto.getUserEntity().getId() != null){
             try {
                 Boolean res = userService.updateUser(userDto.getUserEntity());
-                return res?Result.ok(ResultInfo.SUCCESS) : Result.error(ResultInfo.ERROR);
+                return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
             }catch (Exception e) {
                 logger.error(Constant.EXCEPTION_TITLE,e);
                 return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -115,7 +115,7 @@ public class UserController {
         if (userDto != null && userDto.getUserEntity() != null && userDto.getUserEntity().getId() != null){
             try {
                 Boolean res = userService.updateUser(userDto.getUserEntity());
-                return res?Result.ok(ResultInfo.SUCCESS) : Result.error(ResultInfo.ERROR);
+                return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
             }catch (Exception e) {
                 logger.error(Constant.EXCEPTION_TITLE,e);
                 return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -123,4 +123,24 @@ public class UserController {
         }
         return Result.error(ResultInfo.ERROR);
     }
+
+    /**
+     * 删除用户
+     * @param id 用户ID
+     * @return 操作结果或错误信息
+     */
+    @DeleteMapping  ("/{id}")
+    @ApiOperation("删除用户")
+    public Result deleteUser(@PathVariable("id") @NotNull Long id){
+        try {
+            Boolean res = userService.deleteUser(id);
+            return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
+        }catch (Exception e) {
+            logger.error(Constant.EXCEPTION_TITLE,e);
+            return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }

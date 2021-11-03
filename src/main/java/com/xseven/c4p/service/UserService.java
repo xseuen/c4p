@@ -18,4 +18,6 @@ public interface UserService {
     Boolean updateUser(UserEntity userEntity);
 
     StdPagedList<UserEntity> getUsers(Integer start, Integer pageSize);
+
+    Boolean deleteUser(Long id);
 }

@@ -38,8 +38,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public StdPagedList<UserEntity> getUsers(Integer start, Integer pageSize) {
-        StdPagedList<UserEntity> list = userMapper.stdPagedEntity(new UserQuery().orderBy.gmtModified().desc().end().limit(start,pageSize));
+        StdPagedList<UserEntity> list = userMapper.stdPagedEntity(new UserQuery().where().isDeleted().isFalse().end().orderBy.gmtModified().desc().end().limit(start,pageSize));
         return list;
+    }
+
+    @Override
+    public Boolean deleteUser(Long id) {
+        int i = userMapper.logicDeleteById(id);
+        return i > 0;
     }
 
 }
