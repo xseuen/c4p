@@ -2,7 +2,6 @@ package com.xseven.c4p.controller;
 
 import cn.org.atool.fluent.mybatis.model.StdPagedList;
 
-import com.sun.istack.internal.NotNull;
 import com.xseven.c4p.common.constant.Constant;
 import com.xseven.c4p.common.response.Result;
 import com.xseven.c4p.common.response.ResultInfo;
