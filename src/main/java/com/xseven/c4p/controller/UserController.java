@@ -1,6 +1,7 @@
 package com.xseven.c4p.controller;
 
 import cn.org.atool.fluent.mybatis.model.StdPagedList;
+
 import com.sun.istack.internal.NotNull;
 import com.xseven.c4p.common.constant.Constant;
 import com.xseven.c4p.common.response.Result;
@@ -38,7 +39,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据id获取用户")
-    public Result getUserById(@PathVariable("id")@NotNull Long id){
+    public Result getUserById(@PathVariable("id") Long id){
         try {
             UserEntity user = userService.getUserById(id);
             if (user == null){
@@ -131,7 +132,7 @@ public class UserController {
      */
     @DeleteMapping  ("/{id}")
     @ApiOperation("删除用户")
-    public Result deleteUser(@PathVariable("id") @NotNull Long id){
+    public Result deleteUser(@PathVariable("id") Long id){
         try {
             Boolean res = userService.deleteUser(id);
             return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
