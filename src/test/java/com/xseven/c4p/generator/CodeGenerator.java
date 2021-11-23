@@ -4,16 +4,14 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @ClassName CodeGenerator
@@ -112,9 +110,15 @@ public class CodeGenerator {
      */
     private InjectionConfig.Builder injectionConfig() {
         // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
-        return new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
+        List<String> list = new ArrayList<>();
+        InjectionConfig.Builder builder = new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
             System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
-        }).customFile(Collections.singletonMap("entityDTO", "/templates/entity.dto.java.ftl"));
+            list.add(tableInfo.getEntityName());
+        });
+        for (String li : list) {
+            builder.customFile(Collections.singletonMap(li+"DTO.java", "/templates/entity.dto.java.ftl"));
+        }
+        return builder;
     }
 
 
@@ -153,6 +157,7 @@ public class CodeGenerator {
                 .enableSwagger()//开启swagger注解
                 .disableOpenDir()//禁用生成代码后打开文件位置
                 .build());
+        generator.injection(injectionConfig().build());
         generator.execute(new FreemarkerTemplateEngine());
     }
 

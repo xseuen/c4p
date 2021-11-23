@@ -52,7 +52,7 @@ import com.xseven.c4p.service.${table.serviceName};
     </#if>
 
     private final static Logger logger = LoggerFactory.getLogger( ${table.controllerName}.class);
-    final ${table.serviceName} service;
+    final ${table.serviceName} ${table.serviceName?uncap_first};
     //接口需要规范，请求路径不应该出现动词
     /**
     * 根据id获取对象
@@ -63,11 +63,11 @@ import com.xseven.c4p.service.${table.serviceName};
     @ApiOperation("根据id获取对象")
     public Result get${entity}ById(@PathVariable("id") Serializable id){
         try {
-            ${entity} entity = service.getById(id);
+            ${entity} ${entity?uncap_first}  = ${table.serviceName?uncap_first}.getById(id);
             if (entity == null){
                 return Result.error(ResultInfo.NOT_FOUND);
             }
-            return Result.ok().data(entity);
+            return Result.ok().data(${entity?uncap_first} );
         } catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -83,7 +83,7 @@ import com.xseven.c4p.service.${table.serviceName};
     @ApiOperation(value = "分页获取所有对象",notes = "start是起始位置，pageSize是每页显示条数")
     public Result get${entity}s(Page page){
         try {
-            Page<${entity}> list = service.page(page);
+            Page<${entity}> list = ${table.serviceName?uncap_first}.page(page);
             return Result.ok().data(list);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -93,14 +93,14 @@ import com.xseven.c4p.service.${table.serviceName};
 
     /**
     * 新增对象
-    * @param entityDto 对象相关数据
+    * @param ${entity?uncap_first}DTO 对象相关数据
     * @return 操作结果或错误信息
     */
     @PostMapping("/")
     @ApiOperation("新增对象")
-    public Result save${entity}(@RequestBody ${entity}DTO entityDTO){
+    public Result save${entity}(@RequestBody ${entity}DTO ${entity?uncap_first}DTO){
         try {
-            boolean res = userService.save(entityDTO);
+            boolean res = ${table.serviceName?uncap_first}.save(${entity?uncap_first}DTO);
             return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
@@ -110,15 +110,15 @@ import com.xseven.c4p.service.${table.serviceName};
 
     /**
     * 更新对象所有信息
-    * @param userDto 对象相关数据
+    * @param ${entity?uncap_first}DTO 对象相关数据
     * @return 操作结果或错误信息
     */
     @PutMapping("/")
     @ApiOperation("更新对象所有信息")
-    public Result update${entity}(@RequestBody ${entity}DTO entityDTO){
+    public Result update${entity}(@RequestBody ${entity}DTO ${entity?uncap_first}DTO){
         if (entityDTO != null  && entityDTO.getId() != null){
             try {
-                boolean res = service.updateById(entityDTO);
+                boolean res = ${table.serviceName?uncap_first}.updateById(${entity?uncap_first}DTO);
                 return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
             }catch (Exception e) {
                 logger.error(Constant.EXCEPTION_TITLE,e);
@@ -138,7 +138,7 @@ import com.xseven.c4p.service.${table.serviceName};
     @ApiOperation("删除对象")
     public Result delete${entity}(@PathVariable("id") Serializable id){
         try {
-            boolean res = service.removeById(id);
+            boolean res = ${table.serviceName?uncap_first}.removeById(id);
             return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
@@ -155,7 +155,7 @@ import com.xseven.c4p.service.${table.serviceName};
     @ApiOperation("批量删除对象")
     public Result batchDelete${entity}(@RequestParam("idList[]") Collection<? extends Serializable> idList){
         try {
-            boolean res = service.removeByIds(idList);
+            boolean res = ${table.serviceName?uncap_first}.removeByIds(idList);
             return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
