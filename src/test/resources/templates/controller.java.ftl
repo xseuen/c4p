@@ -1,7 +1,21 @@
 package ${package.Controller};
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xseven.c4p.common.constant.Constant;
+import com.xseven.c4p.common.response.Result;
+import com.xseven.c4p.common.response.ResultInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.Serializable;
+import java.util.Collection;
+import com.xseven.c4p.dto.${entity}DTO;
+import com.xseven.c4p.entity.${entity};
+import com.xseven.c4p.service.${table.serviceName};
 
 <#if restControllerStyle>
     import org.springframework.web.bind.annotation.RestController;

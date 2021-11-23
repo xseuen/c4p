@@ -124,6 +124,7 @@ public class CodeGenerator {
         pathInfo.put(OutputFile.service, projectPath + "/src/main/java/" + javaPath + "/service/");
         pathInfo.put(OutputFile.serviceImpl, projectPath + "/src/main/java/" + javaPath + "/service/impl/");
         pathInfo.put(OutputFile.mapper, projectPath + "/src/main/java/" + javaPath + "/mapper/");
+        pathInfo.put(OutputFile.valueOf("DTO"), projectPath + "/src/main/java/" + javaPath + "/dto/");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig()
                 .entityBuilder()
