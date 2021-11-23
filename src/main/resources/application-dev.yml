@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: c4p
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/c4p?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+server:
+  port: 8081

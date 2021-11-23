@@ -16,6 +16,13 @@
     <properties>
         <java.version>1.8</java.version>
         <fluent-mybatis.version>1.8.7</fluent-mybatis.version>
+        <knife4j.version>2.0.7</knife4j.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
+        <!--mybatis-plus逆向工程插件-->
+        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
+        <!--hutool工具集-->
+        <hutool.version>5.7.15</hutool.version>
+        <velocity.version>1.7</velocity.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,13 +33,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--和fluent_mybatis冲突-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -46,31 +52,34 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.7</version>
+            <version>${knife4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
-        <!-- 引入fluent-mybatis 运行依赖包, scope为compile -->
+        <!-- 引入mybatis-plus 逆向工程 -->
         <dependency>
-            <groupId>com.github.atool</groupId>
-            <artifactId>fluent-mybatis</artifactId>
-            <version>${fluent-mybatis.version}</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator.version}</version>
         </dependency>
-        <!-- 引入fluent-mybatis-processor, scope设置为provider 编译需要，运行时不需要 -->
+        <!-- 引入模板引擎-->
         <dependency>
-            <groupId>com.github.atool</groupId>
-            <artifactId>fluent-mybatis-processor</artifactId>
-            <scope>provided</scope>
-            <version>${fluent-mybatis.version}</version>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
         </dependency>
         <!-- 引入hutool工具类-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.7.15</version>
+            <version>${hutool.version}</version>
         </dependency>
 
     </dependencies>

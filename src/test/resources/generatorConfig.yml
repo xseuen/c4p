@@ -1,0 +1,10 @@
+generator:
+  jdbc:
+    driverClass: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/c4p?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: admin
+  projectPackage: com.xseven.c4p
+  author: xseven
+  strategy:
+    tablePrefix: c4p_

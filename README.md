@@ -4,7 +4,8 @@
   1. 技术架构
      + springboot
      + mysql
-     + fluent_mybatis
+     + fluent_mybatis(弃用)
+     + mybatis_plus
      + lombok
      + logback 日志文件在logs
      + knife4j 接口访问地址：localhost:8081/doc.html
