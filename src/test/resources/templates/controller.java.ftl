@@ -93,14 +93,14 @@ import com.xseven.c4p.service.${table.serviceName};
 
     /**
     * 新增对象
-    * @param entityDto 对象相关数据
+    * @param entityDTO 对象相关数据
     * @return 操作结果或错误信息
     */
     @PostMapping("/")
     @ApiOperation("新增对象")
     public Result save${entity}(@RequestBody ${entity}DTO entityDTO){
         try {
-            boolean res = userService.save(entityDTO);
+            boolean res = Service.save(entityDTO);
             return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);

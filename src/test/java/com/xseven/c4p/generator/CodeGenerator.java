@@ -153,6 +153,7 @@ public class CodeGenerator {
                 .enableSwagger()//开启swagger注解
                 .disableOpenDir()//禁用生成代码后打开文件位置
                 .build());
+        generator.injection(injectionConfig().build());
         generator.execute(new FreemarkerTemplateEngine());
     }
 
