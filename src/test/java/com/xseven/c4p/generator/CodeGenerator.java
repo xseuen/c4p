@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -106,6 +107,16 @@ public class CodeGenerator {
         return new TemplateConfig.Builder();
     }
 
+    /**
+     * 注入配置
+     */
+    private InjectionConfig.Builder injectionConfig() {
+        // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
+        return new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
+            System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
+        }).customFile(Collections.singletonMap("entityDTO", "/templates/entity.dto.java.ftl"));
+    }
+
 
     /**
      * 代码生成
@@ -124,7 +135,7 @@ public class CodeGenerator {
         pathInfo.put(OutputFile.service, projectPath + "/src/main/java/" + javaPath + "/service/");
         pathInfo.put(OutputFile.serviceImpl, projectPath + "/src/main/java/" + javaPath + "/service/impl/");
         pathInfo.put(OutputFile.mapper, projectPath + "/src/main/java/" + javaPath + "/mapper/");
-        pathInfo.put(OutputFile.valueOf("DTO"), projectPath + "/src/main/java/" + javaPath + "/dto/");
+        pathInfo.put(OutputFile.other, projectPath + "/src/main/java/" + javaPath + "/dto/");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig()
                 .entityBuilder()
