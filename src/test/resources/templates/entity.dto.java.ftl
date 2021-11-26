@@ -1,4 +1,5 @@
-package ${package}.dto;
+package ${package.Parent}.dto;
+
 
 import ${package.Entity}.${entity};
 

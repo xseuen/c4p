@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
+import com.sun.istack.internal.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class CodeGenerator {
      */
     private StrategyConfig.Builder strategyConfig() {
         return new StrategyConfig.Builder()
-                .addInclude("c4p_user")// 设置需要生成的表名
+                .addInclude("c4p_type")// 设置需要生成的表名
                 .addTablePrefix(tablePrefix);
     }
 
@@ -107,17 +108,20 @@ public class CodeGenerator {
 
     /**
      * 注入配置
+     * @param tableName
      */
-    private InjectionConfig.Builder injectionConfig() {
+    private static InjectionConfig.Builder  injectionConfig(@NotNull Set<String> tableName) {
         // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
-        List<String> list = new ArrayList<>();
-        InjectionConfig.Builder builder = new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
-            System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
-            list.add(tableInfo.getEntityName());
-        });
-        for (String li : list) {
-            builder.customFile(Collections.singletonMap(li+"DTO.java", "/templates/entity.dto.java.ftl"));
-        }
+        // 截取实体类名
+        String tName = tableName.toString();
+        tName = tableName.toString().substring(tName.lastIndexOf("_") + 1, tName.lastIndexOf("]"));
+        // 将首字母大写
+        tName = tName.substring(0, 1).toUpperCase() + tName.substring(1);
+        InjectionConfig.Builder builder = new InjectionConfig.Builder()
+                .beforeOutputFile((tableInfo, objectMap) -> {
+                    tableInfo.setEntityName(""); // 清空实体类名
+                })
+                .customFile(Collections.singletonMap(tName + "DTO.java", "/templates/entity.dto.java.ftl"));
         return builder;
     }
 
@@ -157,7 +161,7 @@ public class CodeGenerator {
                 .enableSwagger()//开启swagger注解
                 .disableOpenDir()//禁用生成代码后打开文件位置
                 .build());
-        generator.injection(injectionConfig().build());
+        generator.injection(injectionConfig(generator.getStrategy().getInclude()).build());
         generator.execute(new FreemarkerTemplateEngine());
     }
 

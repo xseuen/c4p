@@ -64,7 +64,7 @@ import com.xseven.c4p.service.${table.serviceName};
     public Result get${entity}ById(@PathVariable("id") Serializable id){
         try {
             ${entity} ${entity?uncap_first}  = ${table.serviceName?uncap_first}.getById(id);
-            if (entity == null){
+            if (${entity?uncap_first} == null){
                 return Result.error(ResultInfo.NOT_FOUND);
             }
             return Result.ok().data(${entity?uncap_first} );
@@ -116,7 +116,7 @@ import com.xseven.c4p.service.${table.serviceName};
     @PutMapping("/")
     @ApiOperation("更新对象所有信息")
     public Result update${entity}(@RequestBody ${entity}DTO ${entity?uncap_first}DTO){
-        if (entityDTO != null  && entityDTO.getId() != null){
+        if (${entity?uncap_first}DTO != null  && ${entity?uncap_first}DTO.getId() != null){
             try {
                 boolean res = ${table.serviceName?uncap_first}.updateById(${entity?uncap_first}DTO);
                 return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
