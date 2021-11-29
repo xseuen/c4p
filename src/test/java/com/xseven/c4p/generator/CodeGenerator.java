@@ -2,6 +2,7 @@ package com.xseven.c4p.generator;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.generator.fill.Column;
 import com.sun.istack.internal.NotNull;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -108,20 +110,17 @@ public class CodeGenerator {
 
     /**
      * 注入配置
-     * @param tableName
      */
-    private static InjectionConfig.Builder  injectionConfig(@NotNull Set<String> tableName) {
+    private static InjectionConfig.Builder  injectionConfig() {
         // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
         // 截取实体类名
-        String tName = tableName.toString();
-        tName = tableName.toString().substring(tName.lastIndexOf("_") + 1, tName.lastIndexOf("]"));
+        // String tName = tableName.toString();
+        // tName = tableName.toString().substring(tName.lastIndexOf("_") + 1, tName.lastIndexOf("]"));
         // 将首字母大写
-        tName = tName.substring(0, 1).toUpperCase() + tName.substring(1);
+        // tName = tName.substring(0, 1).toUpperCase() + tName.substring(1);
         InjectionConfig.Builder builder = new InjectionConfig.Builder()
-                .beforeOutputFile((tableInfo, objectMap) -> {
-                    tableInfo.setEntityName(""); // 清空实体类名
-                })
-                .customFile(Collections.singletonMap(tName + "DTO.java", "/templates/entity.dto.java.ftl"));
+                .customFile(Collections.singletonMap("DTO.java", "/templates/entity.dto.java.ftl"));
+                // .customFile(Collections.singletonMap(tName + "DTO.java", "/templates/entity.dto.java.ftl"));
         return builder;
     }
 
@@ -161,8 +160,18 @@ public class CodeGenerator {
                 .enableSwagger()//开启swagger注解
                 .disableOpenDir()//禁用生成代码后打开文件位置
                 .build());
-        generator.injection(injectionConfig(generator.getStrategy().getInclude()).build());
-        generator.execute(new FreemarkerTemplateEngine());
+        generator.injection(injectionConfig().build());
+        generator.execute(new FreemarkerTemplateEngine(){
+            @Override
+            protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+                String entityName = tableInfo.getEntityName();
+                String otherPath = getPathInfo(OutputFile.other);
+                customFile.forEach((key, value) -> {
+                    String fileName = String.format((otherPath + File.separator + "%s"), entityName + key);
+                    outputFile(new File(fileName), objectMap, value);
+                });
+            }
+        });
     }
 
 }
