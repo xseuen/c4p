@@ -1,0 +1,8 @@
+security:
+  ignore:
+    resource:  /swagger-resources/**, /v2/api-docs/**, /webjars/springfox-swagger-ui/**, /swagger-ui.html,/**/*.js
+    api:  /admin/api/v1/users/register
+  login:
+    url:  /admin/api/v1/users/login
+  logout:
+    url:  /admin/api/v1/users/logout

@@ -51,6 +51,9 @@ public class User implements Serializable {
     @TableLogic
     private Boolean isDeleted;
 
+    @ApiModelProperty("激活标识 0未激活 1激活")
+    private boolean isEnabled;
+
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime gmtCreated;

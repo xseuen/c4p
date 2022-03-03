@@ -48,7 +48,7 @@ public class UserController {
             if (user == null){
                 return Result.error(ResultInfo.NOT_FOUND);
             }
-            return Result.ok().data(user);
+            return Result.success().data(user);
         } catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -65,7 +65,7 @@ public class UserController {
     public Result getUsers(Page page){
         try {
             Page<User> list = userService.page(page);
-            return Result.ok().data(list);
+            return Result.success().data(list);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -82,7 +82,7 @@ public class UserController {
     public Result saveUser(@RequestBody UserDTO userDto){
         try {
             boolean res = userService.save(userDto);
-            return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
+            return res? Result.success(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -100,7 +100,7 @@ public class UserController {
         if (userDto != null  && userDto.getId() != null){
             try {
                 boolean res = userService.updateById(userDto);
-                return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
+                return res? Result.success(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
             }catch (Exception e) {
                 logger.error(Constant.EXCEPTION_TITLE,e);
                 return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -120,7 +120,7 @@ public class UserController {
     public Result deleteUser(@PathVariable("id") Serializable id){
         try {
             boolean res = userService.removeById(id);
-            return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
+            return res? Result.success(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);
@@ -137,7 +137,7 @@ public class UserController {
     public Result batchDeleteUser(@RequestParam("idList[]") Collection<? extends Serializable> idList){
         try {
             boolean res = userService.removeByIds(idList);
-            return res? Result.ok(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
+            return res? Result.success(ResultInfo.SUCCESS): Result.error(ResultInfo.ERROR);
         }catch (Exception e) {
             logger.error(Constant.EXCEPTION_TITLE,e);
             return Result.error(ResultInfo.INTERNAL_SERVER_ERROR);

@@ -25,31 +25,29 @@ public class Result {
     @ApiModelProperty(value = "返回信息")
     private String message;
 
-    // @ApiModelProperty(value = "返回数据")
-    // private Map<String,Object> data = new HashMap<>();
-
-     @ApiModelProperty(value = "返回数据")
-     private Object data;
+    @ApiModelProperty(value = "返回数据")
+    private Object data;
 
     /**
      * 构造方法私有化，里面的方法都是静态方法
      * 达到保护属性的作用
      */
-    private  Result(){
+    private Result() {
 
     }
 
     /**
      * 这里是链式编程
      */
-    public static Result ok(){
+    public static Result success() {
         Result result = new Result();
         result.setSuccess(true);
         result.setCode(ResultInfo.SUCCESS.getCode());
         result.setMessage(ResultInfo.SUCCESS.getMessage());
         return result;
     }
-    public static Result error(){
+
+    public static Result error() {
         Result result = new Result();
         result.setSuccess(false);
         result.setCode(ResultInfo.ERROR.getCode());
@@ -57,7 +55,7 @@ public class Result {
         return result;
     }
 
-    public static Result ok(ResultInfo resultInfo){
+    public static Result success(ResultInfo resultInfo) {
         Result result = new Result();
         result.setSuccess(true);
         result.setCode(resultInfo.getCode());
@@ -65,57 +63,53 @@ public class Result {
         return result;
     }
 
-    public static Result error(ResultInfo resultInfo){
+    public static Result error(ResultInfo resultInfo) {
         Result result = new Result();
         result.setSuccess(false);
         result.setCode(resultInfo.getCode());
         result.setMessage(resultInfo.getMessage());
         return result;
     }
+
     /**
      * @Author: xseven
      * @Description: 自定义返回成功与否
      */
-    public  Result success(Boolean success){
+    public Result success(Boolean success) {
         this.setSuccess(success);
         return this;
     }
 
     /**
      * 返回状态码
+     *
      * @param code 状态码
      * @return
      */
-    public  Result code(Integer code){
+    public Result code(Integer code) {
         this.setCode(code);
         return this;
     }
 
     /**
      * 返回提示信息
+     *
      * @param message 提示信息
      * @return
      */
-    public  Result message(String message){
+    public Result message(String message) {
         this.setMessage(message);
         return this;
     }
 
     /**
      * 返回数据
+     *
      * @param data 数据内容
      * @return
      */
-    public Result data (Object data){
+    public Result data(Object data) {
         this.data = data;
         return this;
     }
-    // public  Result data(String key, Object value){
-    //     this.data.put(key,value);
-    //     return this;
-    // }
-    // public  Result data(Map<String,Object> map){
-    //     this.setData(map);
-    //     return this;
-    // }
 }
