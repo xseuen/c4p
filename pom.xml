@@ -22,7 +22,7 @@
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <!--hutool工具集-->
         <hutool.version>5.7.15</hutool.version>
-        <velocity.version>1.7</velocity.version>
+        <velocity.version>2.3</velocity.version>
     </properties>
     <dependencies>
         <dependency>
@@ -76,7 +76,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
+            <artifactId>velocity-engine-core</artifactId>
             <version>${velocity.version}</version>
         </dependency>
         <!-- 引入hutool工具类-->
@@ -93,6 +93,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.6</version>
                 <configuration>
                     <excludes>
                         <exclude>
