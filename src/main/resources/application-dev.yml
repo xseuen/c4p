@@ -1,3 +1,8 @@
+server:
+  port: 8081
+  servlet:
+    session:
+      timeout: 21600
 spring:
   application:
     name: c4p
@@ -6,5 +11,51 @@ spring:
     username: root
     password: admin
     url: jdbc:mysql://localhost:3306/c4p?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-server:
-  port: 8081
+    hikari:
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  #redis配置
+  redis:
+    host: 你的密码
+    port: 6379
+    password: Redis密码
+  #mq配置
+  rabbitmq:
+    host: 服务器ip
+    port: 5672
+    username: MQ账号
+    password: MQ密码
+  #邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: 邮箱号
+    password: 邮箱授权码
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+      smtp:
+      auth: true
+      socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
+  #图片大小限制
+  servlet:
+    multipart:
+      max-file-size: 40MB
+      max-request-size: 100MB
+  #jwt
+  jwt:
+    key: c4p01010202
+

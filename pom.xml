@@ -15,13 +15,14 @@
     <description>c4p</description>
     <properties>
         <java.version>1.8</java.version>
-        <!--swagger文档工具-->
+        <!-- swagger文档工具 -->
         <knife4j.version>2.0.7</knife4j.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
-        <!--mybatis-plus逆向工程插件-->
+        <!-- mybatis-plus逆向工程插件 -->
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
-        <!--hutool工具集-->
+        <!-- hutool工具集 -->
         <hutool.version>5.7.15</hutool.version>
+        <!-- 引入模板引擎 -->
         <velocity.version>2.3</velocity.version>
     </properties>
     <dependencies>
@@ -32,6 +33,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -69,7 +74,7 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis-plus-generator.version}</version>
         </dependency>
-        <!-- 引入模板引擎-->
+        <!-- 引入模板引擎 -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
@@ -85,7 +90,11 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
     </dependencies>
 
     <build>
