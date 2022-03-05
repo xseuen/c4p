@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +30,7 @@ import java.util.Map;
 @Slf4j
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         //登录成功后获取当前登录用户
         UserDetail userDetail = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Map<String,Object> payload = Maps.newHashMap();
@@ -50,7 +49,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         String token = JWTUtil.createToken(payload, key.getBytes());
         System.out.println(token);
         log.info("用户[{}]于[{}]登录成功!", userDetail.getUser().getUsername(), new Date());
-        WriteResponse.write(httpServletResponse, Result.success(ResultInfo.LOGIN_SUCCESS));
+        WriteResponse.write(httpServletResponse, Result.success(ResultInfo.LOGIN_SUCCESS).data(token));
     }
 
 }
