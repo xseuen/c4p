@@ -4,7 +4,9 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.jwt.JWTPayload;
 import cn.hutool.jwt.JWTUtil;
+import cn.hutool.jwt.signers.JWTSignerUtil;
 import com.google.common.collect.Maps;
+import com.xseven.c4p.common.constant.Constant;
 import com.xseven.c4p.common.response.Result;
 import com.xseven.c4p.common.response.ResultInfo;
 import com.xseven.c4p.common.response.WriteResponse;
@@ -13,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         UserDetail userDetail = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Map<String,Object> payload = Maps.newHashMap();
         DateTime now = DateTime.now();
-        DateTime newTime = now.offsetNew(DateField.MINUTE, 10);
+        DateTime newTime = now.offsetNew(DateField.MINUTE, 2);
         //签发时间
         payload.put(JWTPayload.ISSUED_AT, now);
         //过期时间
@@ -43,11 +44,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         //生效时间
         payload.put(JWTPayload.NOT_BEFORE, now);
         //载荷
-        payload.put("username", userDetail.getUsername());
-        payload.put("password", userDetail.getPassword());
-        String key = "aabb";
-        String token = JWTUtil.createToken(payload, key.getBytes());
-        System.out.println(token);
+        payload.put(Constant.USERNAME, userDetail.getUsername());
+        String token = JWTUtil.createToken(payload, JWTSignerUtil.hs256(Constant.JWT_KEY.getBytes()));
         log.info("用户[{}]于[{}]登录成功!", userDetail.getUser().getUsername(), new Date());
         WriteResponse.write(httpServletResponse, Result.success(ResultInfo.LOGIN_SUCCESS).data(token));
     }

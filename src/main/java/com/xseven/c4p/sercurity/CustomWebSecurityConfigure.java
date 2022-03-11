@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @ClassName CustomWebSecurityConfigure
@@ -48,6 +49,7 @@ public class CustomWebSecurityConfigure extends WebSecurityConfigurerAdapter {
     private String passwordKey;
 
     final UserDetailsServiceImpl userDetailsService;
+    final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -72,7 +74,10 @@ public class CustomWebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 // 登出后的返回结果
                 .logoutSuccessHandler(new LogoutSuccessHandlerImpl())
                 // 这里配置的为当未登录访问受保护资源时，返回json
-                .and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointHandler());
+                .and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointHandler())
+                //添加自定义验证码过滤器，在UsernamePasswordAuthenticationFilter之前
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

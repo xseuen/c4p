@@ -10,4 +10,7 @@ package com.xseven.c4p.common.constant;
 public interface Constant {
    String EXCEPTION_TITLE = "异常：";
    String LIST = "list";
+   String USERNAME = "username";
+   String PASSWORD = "password";
+   String JWT_KEY = "c4p";
 }
